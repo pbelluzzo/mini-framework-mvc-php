@@ -1,0 +1,15 @@
+{
+    "name": "pbelluzzo/mini-framework-mvc-php",
+    "authors": [
+        {
+            "name": "Pedro Belluzzo",
+            "email": "pedrobelluzzo@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload" : {
+        "psr-4" :{
+            "app\\" : "app/"
+        }
+    }
+}
