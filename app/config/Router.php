@@ -1,15 +1,12 @@
 <?php
 
-$this->get('/',function(){
-    echo 'Home!';
-});
+$this->get('/','PagesController@home');
 
 $this->get('/home',function(){
-    echo 'Estou na Home!';
+    (new \app\controller\TesteController)->index();
+    //echo 'Estou na Home!';
 });
 
-$this->get('/about/test', function(){
-    echo 'Estou na pagina Sobre';
-});
+$this->get('/about', 'PagesController@aboutUs');
 
-$this->get('/categoria', 'MyController@method');
+$this->get('/contact', 'PagesController@contact');

@@ -70,6 +70,7 @@ class RouterCore
                     $get['call']();
                     break;
                 }
+                $this->executeController($get['call']);
             }
         }
     }
@@ -77,6 +78,30 @@ class RouterCore
     private function executePost()
     {
 
+    }
+
+    private function executeController($call)
+    {
+        $ex = explode('@',$call);
+
+        if(!isset($ex[0]) || !isset($ex[1]))
+        {
+            (new \app\controller\MessageController)->message(PG_NOT_FOUND_MSG, PG_NOT_FOUND_TITLE, 404);
+            return;
+        }
+
+        $cont = 'app\\controller\\' . $ex[0];
+        if(!class_exists($cont)){
+            (new \app\controller\MessageController)->message('Controller Not Found: ' . $ex[0],PG_NOT_FOUND_TITLE ,404);
+            return;
+        }
+
+        if(!method_exists($cont, $ex[1])){
+            (new \app\controller\MessageController)->message('Method Not Found: ' . $ex[1],PG_NOT_FOUND_TITLE ,404);
+            return;
+        }
+
+        call_user_func_array([new $cont, $ex[1]],[]);
     }
 
     private function normalizeURI($arr)
